@@ -1,5 +1,6 @@
 import 'package:fast_app_base/common/cli_common.dart';
 import 'package:fast_app_base/common/util/async/flutter_async.dart';
+import 'package:fast_app_base/data/local/error/local_db_error.dart';
 import 'package:fast_app_base/data/memory/todo_status.dart';
 import 'package:fast_app_base/data/memory/vo_todo.dart';
 import 'package:fast_app_base/data/remote/result/api_error.dart';
@@ -10,14 +11,13 @@ import 'package:fast_app_base/screen/main/write/d_write_todo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../remote/todo_api.dart';
+import '../local/local_db.dart';
 
 class TodoData extends GetxController {
   final RxList<Todo> todoList = <Todo>[].obs;
   final RxBool isLoaded = false.obs;
 
-  final todoRepository = TodoApi.instance;
-  //final todoRepository = LocalDB.instance;
+  final todoRepository = LocalDB.instance;
 
   @override
   void onInit() async {
@@ -40,7 +40,7 @@ class TodoData extends GetxController {
 
   void addTodo(BuildContext context) async {
     final result = await WriteTodoBottomSheet().show();
-    result?.runIfSuccess((data) async{
+    result?.runIfSuccess((data) async {
       final newTodo = Todo(
         id: newId,
         title: data.title,
@@ -48,17 +48,11 @@ class TodoData extends GetxController {
         createdTime: DateTime.now(),
         status: TodoStatus.incomplete,
       );
-     final requestResult = await todoRepository.addTodo(newTodo);
-     requestResult.runIfSuccess((data) => todoList.add(newTodo));
-     requestResult.runIfFailure((error) {
-       switch(error.networkErrorType){
-
-         case NetworkErrorType.networkConnectionError:
-           //재시도를 3번
-         case NetworkErrorType.serviceError:
-           MessageDialog(error.message).show();
-       }
-     });
+      final requestResult = await todoRepository.addTodo(newTodo);
+      requestResult.runIfSuccess((data) => todoList.add(newTodo));
+      requestResult.runIfFailure((error) {
+        MessageDialog(error.message).show();
+      });
     });
   }
 
@@ -99,7 +93,7 @@ class TodoData extends GetxController {
     });
   }
 
-  void processResponseResult(SimpleResult<void, ApiError> result, Todo updatedTodo) {
+  void processResponseResult(SimpleResult<void, LocalDBError> result, Todo updatedTodo) {
     result.runIfSuccess((data) => updateTodo(updatedTodo));
     result.runIfFailure((error) => MessageDialog(error.message).show());
   }
