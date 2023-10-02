@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 enum TabItem {
   home(Icons.event_note_outlined, 'ToDo', TodoFragment()),
-  favorite(Icons.search, 'Search', SearchFragment());
+  search(Icons.search, 'Search', SearchFragment());
 
   final IconData activeIcon;
   final IconData inActiveIcon;

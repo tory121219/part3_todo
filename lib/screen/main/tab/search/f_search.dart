@@ -16,7 +16,7 @@ class SearchFragment extends StatelessWidget {
             Expanded(
               child: Container(
                 color: Colors.green.withOpacity(0.2),
-                child: const Column(
+                child:  const Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

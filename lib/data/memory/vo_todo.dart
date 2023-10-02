@@ -4,16 +4,16 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'vo_todo.freezed.dart';
+
 part 'vo_todo.g.dart';
 
 @unfreezed
-class Todo with _$Todo{
-
+class Todo with _$Todo {
   Todo._();
 
   factory Todo({
     required final int id,
-    @JsonKey(name: 'created_time')required final DateTime createdTime,
+    required final DateTime createdTime,
     DateTime? modifyTime,
     required String title,
     required DateTime dueDate,

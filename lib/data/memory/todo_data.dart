@@ -3,7 +3,6 @@ import 'package:fast_app_base/common/util/async/flutter_async.dart';
 import 'package:fast_app_base/data/local/error/local_db_error.dart';
 import 'package:fast_app_base/data/memory/todo_status.dart';
 import 'package:fast_app_base/data/memory/vo_todo.dart';
-import 'package:fast_app_base/data/remote/result/api_error.dart';
 import 'package:fast_app_base/data/simple_result.dart';
 import 'package:fast_app_base/screen/dialog/d_confirm.dart';
 import 'package:fast_app_base/screen/dialog/d_message.dart';

@@ -17,7 +17,7 @@ class MainScreen extends StatefulWidget {
 class MainScreenState extends State<MainScreen>
     with SingleTickerProviderStateMixin, TodoDataProvider {
   TabItem _currentTab = TabItem.home;
-  final tabs = [TabItem.home, TabItem.favorite];
+  final tabs = [TabItem.home, TabItem.search];
   final List<GlobalKey<NavigatorState>> navigatorKeys = [];
 
   int get _currentIndex => tabs.indexOf(_currentTab);
